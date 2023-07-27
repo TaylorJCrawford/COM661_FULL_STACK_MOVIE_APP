@@ -1,0 +1,13 @@
+.container_main {
+    height: 100%;
+    margin: 20px;
+    margin-left: 15vw;
+}
+
+.content_container {
+    padding-top: 5px;
+    display: grid;
+    place-items: center;
+    float: left;
+    margin: 20px;
+}

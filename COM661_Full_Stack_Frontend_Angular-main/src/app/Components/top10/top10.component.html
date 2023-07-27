@@ -1,0 +1,21 @@
+<div *ngFor = "let movie of top_movies_list | async; let i = index" [attr.data-index]="i">
+
+    <br>
+
+    <div class="movie_content">
+        <div>
+            <div class="movie_main_content">
+                <a href="#" style="float:right" [routerLink]= "['/movie', movie.title]">
+                    <img src={{movie.poster}}>
+                </a>
+                <h3><div [innerHtml]="getrank(i)" style="float: left; padding-right: 10px;"></div> {{ movie.title }}</h3>
+                <div class="" [innerHtml]="get_star_rating(movie.popularity)"></div>
+                <p>{{ movie.overview }}</p>
+            </div>
+        </div>
+        <br><br>
+    </div>
+</div>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

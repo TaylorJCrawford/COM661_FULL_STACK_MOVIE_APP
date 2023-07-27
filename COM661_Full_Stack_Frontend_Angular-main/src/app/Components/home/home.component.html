@@ -1,0 +1,27 @@
+<img src="assets/images/main_popcorn.jpg" class="main_image" alt="">
+
+<div class="main">
+    <h2>Welcome</h2>
+    <p>Welcome to PopCorner. This is a movie review website for a range of users
+        looking to find the next best watch. This system is build with angular and
+        flask. Angular provides the front end framework that supports the user in navigating
+        the flask api. In contrast to this flask also makes calls to the final layer of the
+        system. That is mongodb. Which provides persistent memory storage.</p>
+    <h3>Dataset Information</h3>
+    <p>The base dataset was gathered from kaggle.com.
+        The dataset is part of the public domain and is freely available to use as the user sees fit.
+        The dataset contains metadata for 45, 000 movies, with data ranging from crew, cast, budget information and more.
+        The dataset contains 7 csv associated files comprising a range of information for each movie all
+        relating to each other via a primary/foreign key. This prototype system will make use of a small subset of this data.
+        There is currently = '{{dataset_size}}' movies available in database.</p>
+    <ng-container *ngIf="isLogin()===true else notLogin">
+        <h3>Account Operations</h3>
+        <a (click)="deleteAccount()" type="button" class="btn btn-danger" style="margin: 20px; text-decoration: none;">Delete My Account</a>
+        <ng-container *ngIf="isAdmin()===true">
+            <a (click)="adminOpen()" type="button" class="btn btn-info" style="margin: 20px; text-decoration: none;">Open Admin Section</a>
+        </ng-container>
+    </ng-container>
+    <ng-template #notLogin>
+        <br><br>
+    </ng-template>
+</div>

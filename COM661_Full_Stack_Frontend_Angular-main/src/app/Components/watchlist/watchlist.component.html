@@ -1,0 +1,38 @@
+<div class="content_container_main_watchlist">
+
+    <ng-container *ngIf="render===true else no_render">
+        <ag-grid-angular style="height: 85vh; width:40vw; margin-top: 2.5vh;" class="ag-theme-alpine"
+            [rowData]="complete_watchlist" [columnDefs]="colDefs" [animateRows]="true"
+            (cellClicked)="onCellClick($event)"></ag-grid-angular>
+    </ng-container>
+
+    <ng-template #no_render>
+        <span style="margin: 100px"> No Movies In Watchlist </span>
+    </ng-template>
+
+    <ng-container *ngIf="render===true">
+    <div>
+        <ng-container *ngIf="is_select===true else no_selection">
+            <img src={{movie.poster}}>
+
+            <div class="movie_container">
+                <h3>{{movie.title}}</h3>
+                <p>Date:{{movie.release_date}} | Popularity: ({{movie.popularity}}) | Lang: {{movie.language}} </p>
+
+                <h4>Overview</h4>
+                <p>{{movie.overview}}</p>
+
+                <button type="button" class="btn btn-info" (click)="sendTo('/movie/' + movie.title)">View Full
+                    Description</button>
+                <button type="button" class="btn btn-danger"
+                    (click)="removeMovieFromWatchList(movie.title)">Watched</button>
+            </div>
+        </ng-container>
+
+        <ng-template #no_selection>
+            <span> Select An Item From The Table To
+                View More Details or Make Changes</span>
+        </ng-template>
+    </div>
+</ng-container>
+</div>

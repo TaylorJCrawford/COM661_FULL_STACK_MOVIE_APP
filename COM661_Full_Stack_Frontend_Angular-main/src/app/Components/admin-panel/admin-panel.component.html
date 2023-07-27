@@ -1,0 +1,18 @@
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="panel_container user-card">
+    <div *ngFor="let user of users_list | async">
+        <div class="card_admin">
+            <img src="assets/images/avatar_icon.png" class="d-inline-block align-top" style="width:90%" alt="">
+            <h1>{{user.username}}</h1>
+            <p class="title">{{user.email}}</p>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" style="cursor: pointer;" (input)="admin_updated(user.admin, user._id)" [checked]="user.admin">
+                <label class="form-check-label" for="flexSwitchCheckChecked">Admin</label>
+            </div><br>
+            <p><button class="btn btn-info" [disabled]="user.admin" (click)="viewWatchlist(user._id)">View Watchlist</button></p>
+            <p><button class="btn btn-danger" (click)="remove_user(user._id)">Remove</button></p>
+        </div>
+    </div>
+</div>

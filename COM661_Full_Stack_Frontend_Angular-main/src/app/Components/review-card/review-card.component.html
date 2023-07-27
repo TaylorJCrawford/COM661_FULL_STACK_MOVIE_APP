@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body">
+    User: {{review.name}} | Created: {{review.created}}
+    <div class="" [innerHtml]="get_star_rating(review.overview)"></div>
+    <p class="card-text" style="margin: 10px">{{review.comment}}</p>
+    <ng-container *ngIf="user_id===review.user_id || is_admin===true">
+      <ng-container *ngIf="user_id===review.user_id && is_admin===false">
+        <a (click)="edit(review)" style="color: #ffff" class="btn btn-primary">Edit</a>
+      </ng-container>
+      <a (click)="remove(title)" style="color: #ffff" class="btn btn-danger">Delete</a>
+    </ng-container>
+  </div>
+</div>

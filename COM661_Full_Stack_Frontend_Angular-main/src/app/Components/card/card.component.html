@@ -1,0 +1,22 @@
+<div class="wrapper">
+        <div class="card movie_card">
+            <img src={{movie.poster}}>
+        <div class="descriptions" [routerLink]= "['/movie', movie.title]">
+
+            <div>
+                <h2>{{movie.title}}</h2>
+                <div class="" style="float:left;"[innerHtml]="get_star_rating(movie.popularity)"></div>
+
+                <p style="clear: both;">Reviews Available: {{movie.reviews.length}}</p>
+                <p>
+                    {{size_cal(movie.overview)}}
+                </p>
+
+                <br>
+
+                <p style="text-align: center;">
+                    ** Click To View More Details **
+                </p>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,210 @@
+<ng-container *ngIf="is_edit===false else edit_true">
+    <div class="container_main">
+
+        <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+            <h3><b><i>Add New Movie</i></b></h3>
+
+            <div class="form-group" style="width: 49%; float:left; margin-right: 1%;">
+                <label for="title_field">Title</label>
+                <input type="email" class="form-control" id="title_field" name="title_field"
+                    formControlName="title_field" aria-describedby="emailHelp" placeholder="The Great Gatsby"
+                    [ngClass]="{ 'error': isInvalid('title_field') }" required>
+            </div>
+
+            <div class="form-group" style="width: 49%; float: left;">
+                <label for="language_field">Language</label>
+                <input type="text" class="form-control" id="language_field" name="language_field"
+                    formControlName="language_field" placeholder="en"
+                    [ngClass]="{ 'error': isInvalid('language_field') }" required>
+            </div>
+
+            <div class="form-group">
+                <label for="overview_field">Overview</label>
+                <textarea class="form-control" id="overview_field" name="overview_field"
+                    formControlName="overview_field" rows="3" [ngClass]="{ 'error': isInvalid('overview_field') }"
+                    required
+                    placeholder="A work of visual art that simulates experiences and otherwise communicates ideas, stories, perceptions, feelings, beauty, or atmosphere through the use of moving images"></textarea>
+                <small id="emailHelp" class="form-text text-muted">A short description of the movie.</small>
+            </div>
+
+            <div class="form-group" style="width: 49%; float:left; margin-right: 1%;">
+                <label for="popularity_field">Popularity</label>
+                <input type="number" class="form-control" id="popularity_field" name="popularity_field"
+                    formControlName="popularity_field" placeholder="18.956"
+                    [ngClass]="{ 'error': isInvalid('popularity_field') }" required min="0" max="25">
+                <small id="emailHelp" class="form-text text-muted">Value between 0 & 25.</small>
+            </div>
+
+            <div class="form-group" style="width: 49%; float:left;">
+                <label for="release_field">Release Date</label>
+                <input type="date" class="form-control" id="release_field" name="release_field"
+                    formControlName="release_field" min="1900-02-20" max="2032-02-20"
+                    [ngClass]="{ 'error': isInvalid('release_field') }" required>
+            </div>
+
+            <div class="form-group" style="clear:both;">
+                <label for="companies_field">Production Companies</label>
+                <input type="text" class="form-control" id="companies_field" name="companies_field"
+                    formControlName="companies_field" placeholder="Disney,Lionsgate"
+                    [ngClass]="{ 'error': isInvalid('companies_field') }" required>
+                <small id="emailHelp" class="form-text text-muted">Comma seperated list of companies that helped make
+                    the movie.</small>
+            </div>
+
+            <div class="form-group" style="width: 49%; float:left; margin-right: 1%;">
+                <label for="genres_field">Genres</label>
+                <input type="text" class="form-control" id="genres_field" name="genres_field"
+                    formControlName="genres_field" placeholder="Historical,Drama"
+                    [ngClass]="{ 'error': isInvalid('genres_field') }" required>
+                <small id="emailHelp" class="form-text text-muted">Comma seperated list of genra's that the movie is
+                    part of.</small>
+            </div>
+
+            <div class="form-group" style="width: 49%; float:left;">
+                <label for="keywords_field">Keywords</label>
+                <input type="text" class="form-control" id="keywords_field" name="keywords_field"
+                    formControlName="keywords_field" placeholder="Love,Police"
+                    [ngClass]="{ 'error': isInvalid('keywords_field') }" required>
+                <small id="emailHelp" class="form-text text-muted">Comma seperated list of keywords that will helped
+                    user find common movies.</small>
+            </div>
+
+            <div id="drop-area" style="clear: both;">
+            <label for="characters_field">Characters</label>
+            <div class="form-group">
+                <input type="text" class="form-control" style="width: 50%; float:left" id="actor_field" value="" placeholder="Actor">
+                <input type="text" class="form-control" style="width: 50%;" id="character_field" value="" placeholder="Character">
+            </div>
+            <a type="submit" class="btn btn-danger" style="margin-bottom: 10px;" (click)="remove_characters()">Remove Last Added</a>
+            <a type="submit" class="btn btn-primary" style="float:right" (click)="add_characters()">Submit</a>
+
+            <div class="scrolling-wrapper">
+                <span *ngFor = "let chars of getChar(char_list)">
+                    <span *ngIf="!is_empty_value">
+                        <div class="card"><app-character-cards [Actor]="chars.actor" [Character]="chars.character"></app-character-cards></div>
+                    </span>
+                </span>
+            </div>
+
+            <p *ngIf="char_error == true" style="color: red;">Error Before Submitting Make Sure You Have The Correct Values Inside Textboxes!</p>
+
+        </div>
+        <br>
+
+            <div class="form-group">
+                <label for="poster_field">Poster</label>
+                <input type="text" class="form-control" id="poster_field" name="poster_field"
+                    formControlName="poster_field" [ngClass]="{ 'error': isInvalid('poster_field') }"
+                    placeholder="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/108b520c55e3c9760f77a06110d6a73b_240x360_crop_center.progressive.jpg?v=1573652543"
+                    required>
+                <small id="emailHelp" class="form-text text-muted">URL to image. Useful it this is the offical movie
+                    poster.</small>
+            </div>
+
+            <span *ngIf="isIncomplete()">
+                You must complete all fields before submitting<br>
+            </span>
+
+            <button type="submit" *ngIf="!isIncomplete()" class="btn btn-primary">Submit</button>
+            <br><br>
+        </form>
+    </div>
+</ng-container>
+<ng-template #edit_true>
+    <div *ngFor="let movie of movies_list | async;">
+        <div class="container_main">
+
+            <form>
+                <h3 (click)="onSubmit_edit(movie.title)"><b><i>Edit Movie</i></b></h3>
+                <div class="form-group">
+                    <label for="title_field">Title</label>
+                    <input type="text" class="form-control" id="title_field_edit" aria-describedby="emailHelp"
+                        value="{{movie.title}}" placeholder="The Great Gatsby" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="language_field">Language</label>
+                    <input type="text" class="form-control" id="language_field_edit" placeholder="en" required
+                        value="{{movie.language}}" />
+                    <small id="emailHelp" class="form-text text-muted">This is the value the inital language the movie
+                        was
+                        release in. e.g. 'en'.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="overview_field">Overview</label>
+                    <textarea class="form-control" id="overview_field_edit" rows="3" required value="{{movie.overview}}"
+                        placeholder="A work of visual art that simulates experiences and otherwise communicates ideas, stories, perceptions, feelings, beauty, or atmosphere through the use of moving images"></textarea>
+                    <small id="emailHelp" class="form-text text-muted">A short description of the movie.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="popularity_field">Popularity</label>
+                    <input type="number" class="form-control" id="popularity_field_edit" placeholder="18.956" required
+                        value="{{movie.popularity}}" />
+                    <small id="emailHelp" class="form-text text-muted">Value between 0 & 25.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="release_field">Release Date</label>
+                    <input type="date" class="form-control" id="release_field_edit" min="1900-02-20" max="2032-02-20"
+                        required value="{{movie.release_date}}" />
+                </div>
+
+                <div class="form-group">
+                    <label for="companies_field">Production Companies</label>
+                    <input type="text" class="form-control" id="companies_field_edit" placeholder="Disney,Lionsgate"
+                        required value="{{movie.release_date}}" />
+                    <small id="emailHelp" class="form-text text-muted">Comma seperated list of companies that helped
+                        make the
+                        movie.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="genres_field">Genres</label>
+                    <input type="text" class="form-control" id="genres_field_edit" placeholder="Historical,Drama"
+                        required value="{{movie.genres}}" />
+                    <small id="emailHelp" class="form-text text-muted">Comma seperated list of genra's that the movie is
+                        part
+                        of.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="keywords_field">Keywords</label>
+                    <input type="text" class="form-control" id="keywords_field_edit" placeholder="Love,Police" required
+                        value="{{movie.keywords}}" />
+                    <small id="emailHelp" class="form-text text-muted">Comma seperated list of keywords that will helped
+                        user
+                        find common movies.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="characters_field">Characters</label>
+                    <textarea class="form-control" id="characters_field_edit" rows="3"
+                        placeholder="{ 'Tom Holland' : 'Spiderman' }" required
+                        value="{{ getStringValue(movie.characters) }}"></textarea>
+                    <small id="emailHelp" class="form-text text-muted">A json format mapping from actors name to the
+                        role they
+                        played. e.g. [ 'John Doe' : 'Cop' ].</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="poster_field">Poster</label>
+                    <input type="text" class="form-control" id="poster_field_edit" formControlName="poster_field_edit"
+                        value="{{movie.poster}}"
+                        placeholder="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/108b520c55e3c9760f77a06110d6a73b_240x360_crop_center.progressive.jpg?v=1573652543"
+                        required />
+                    <small id="emailHelp" class="form-text text-muted">URL to image. Useful it this is the offical movie
+                        poster.</small>
+                </div>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="edit_check_box">
+                    <label class="form-check-label" for="edit_check_box">Remove Empty Fields</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" (click)="onSubmit_edit(movie.title)">Submit</button>
+            </form>
+        </div>
+    </div>
+</ng-template>

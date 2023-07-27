@@ -1,0 +1,63 @@
+<div class="comment_container">
+    <br><br>
+    <div class="card" style="margin-left: 15vw; margin-right: 15vw;">
+        <div class="card-body">
+            <h5 class="card-title" id="add_comment_title">Update Comment</h5>
+            <form>
+                <div class="form-group">
+                    <label for="name_field">Name</label>
+                    <input type="text" class="form-control" id="name_field" name="name_field"
+                        formControlName="name_field" aria-describedby="emailHelp"
+                        placeholder="Name to be displayed with review" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <input type="text" class="form-control" id="comment_field" name="comment_field"
+                        formControlName="comment_field" aria-describedby="emailHelp"
+                        placeholder="Movie was great and really enjoyed it" required>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons"
+                        style="float:left; padding-right: 15px;">
+                        <label className="btn btn-secondary active">
+                            <input (click)="setRadio('1')" type="radio" name="rating_field1" id="rating_field1"
+                                autocomplete="off" value='1' /> 1 Star
+                        </label>
+                    </div>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons"
+                        style="float:left; padding-right: 15px;">
+                        <label className="btn btn-secondary active">
+                            <input (click)="setRadio('2')" type="radio" name="rating_field2" id="rating_field2"
+                                autocomplete="off" value='2' /> 2 Star
+                        </label>
+                    </div>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons"
+                        style="float:left; padding-right: 15px;">
+                        <label className="btn btn-secondary active">
+                            <input (click)="setRadio('3')" type="radio" name="rating_field3" id="rating_field3"
+                                autocomplete="off" value='3' /> 3 Star
+                        </label>
+                    </div>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons"
+                        style="float:left; padding-right: 15px;">
+                        <label className="btn btn-secondary active">
+                            <input (click)="setRadio('4')" type="radio" name="rating_field4" id="rating_field4"
+                                autocomplete="off" value='4' /> 4 Star
+                        </label>
+                    </div>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons" style="padding-right: 15px;">
+                        <label className="btn btn-secondary active">
+                            <input (click)="setRadio('5')" type="radio" name="rating_field5" id="rating_field5"
+                                autocomplete="off" value='5' /> 5 Star
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" (click)="updateComment()" class="btn btn-success"
+                    style="margin-right: 10px;">Update Comment</button>
+
+                <button type="submit" class="btn btn-secondary">Clear</button>
+            </form>
+    </div>
+    <br>
+</div>

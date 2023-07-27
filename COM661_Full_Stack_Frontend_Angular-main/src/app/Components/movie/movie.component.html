@@ -1,0 +1,130 @@
+<div *ngFor="let movie of movie_list | async">
+  <div class="container_main">
+
+    <img src={{movie.poster}}>
+
+    <div class="container_info" style="border-style: outset;">
+      <h3>{{movie.title}}</h3>
+      <p>Date:{{movie.release_date}} | Popularity: ({{movie.popularity}}) | Lang: {{movie.language}} </p>
+
+      <h4>Overview</h4>
+      <p>{{movie.overview}}</p>
+
+      <h4>Production Companies</h4>
+      <p> {{movie.production_companies}} </p>
+
+      <h4>Actors / Characters</h4>
+
+      <div class="scrolling-wrapper">
+        <span *ngFor="let char of getChar(movie.characters)">
+          <div class="card"><app-character-cards [Actor]="char.actor" [Character]="char.character"></app-character-cards></div>
+        </span>
+      </div><br>
+
+      <h4 style="clear:both;">Genre</h4>
+      <div *ngFor="let genra of stringToList(movie.genres)">
+        <span class="badge badge-pill badge-info" style="float: left; margin-right: 5px;">{{genra}}</span>
+      </div>
+      <br>
+      <br>
+
+      <ng-container *ngIf="is_admin===true">
+        <h4 style="clear: both;">Controls</h4>
+        <button type="button" class="btn btn-primary"
+          (click)="sendTo('/movie/edit/' + movie.title, movie.title)">Edit</button>
+        <button type="button" class="btn btn-danger" (click)="removeMovie(movie.title)">Remove</button>
+      </ng-container>
+
+      <ng-container *ngIf="is_admin===false && isLogin() && watchlist_button != false">
+        <button style="clear: both;" type="button" class="btn btn-secondary" (click)="addToWatchlist(movie.title)" >Add To Watchlist</button>
+    </ng-container>
+    </div>
+  </div>
+
+  <br><br>
+
+
+  <div class="comment_container">
+
+    <div *ngIf="isLogin()">
+      <button type="submit" id="add_comment_button" class="btn btn-info" style="margin-right: 10px; float: right;"
+        (click)="addComment()">Add New Comment</button>
+      <h3 style="padding-left: 20px;">User Reviews</h3>
+    </div>
+
+    <div *ngIf="!isLogin()" style="text-align: center;">
+      ** To Access Reviews You Need To Login **
+      <br><br>
+    </div>
+
+    <div class="card card-form" style="margin-left: 15vw; margin-right: 15vw;" [ngStyle]="{'display':display_add_comment}">
+      <div class="card-body">
+        <h5 class="card-title" id="add_comment_title">Add New Comment</h5>
+
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(movie.title)">
+          <div class="form-group">
+            <label for="name_field">Name</label>
+            <input type="text" class="form-control" id="name_field" name="name_field"
+              formControlName="name_field" aria-describedby="emailHelp" placeholder="Name to be displayed with review"
+              required [ngClass]="{ 'error': isInvalid('name_field') }">
+          </div>
+          <div class="form-group">
+
+            <label for="comment">Comment</label>
+            <input type="text" class="form-control" id="comment_field" name="comment_field"
+              formControlName="comment_field" aria-describedby="emailHelp"
+              placeholder="Movie was great and really enjoyed it" required [ngClass]="{ 'error': isInvalid('comment_field') }">
+          </div>
+
+          <div class="form-group">
+
+            <br>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons" style="float:left; padding-right: 15px;">
+              <label className="btn btn-secondary active">
+                <input type="radio" name="rating_field" id="rating_field" formControlName="rating_field"
+                  autocomplete="off" value='1' checked /> 1 Star
+              </label>
+            </div>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons" style="float:left; padding-right: 15px;">
+              <label className="btn btn-secondary active">
+                <input type="radio" name="rating_field" id="rating_field" formControlName="rating_field"
+                  autocomplete="off" value='2' /> 2 Star
+              </label>
+            </div>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons" style="float:left; padding-right: 15px;">
+              <label className="btn btn-secondary active">
+                <input type="radio" name="rating_field" id="rating_field" formControlName="rating_field"
+                  autocomplete="off" value='3' /> 3 Star
+              </label>
+            </div>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons" style="float:left; padding-right: 15px;">
+              <label className="btn btn-secondary active">
+                <input type="radio" name="rating_field" id="rating_field" formControlName="rating_field"
+                  autocomplete="off" value='4' /> 4 Star
+              </label>
+            </div>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons" style="padding-right: 15px;">
+              <label className="btn btn-secondary active">
+                <input type="radio" name="rating_field" id="rating_field" formControlName="rating_field"
+                  autocomplete="off" value='5' /> 5 Star
+              </label>
+            </div>
+          </div>
+            <span *ngIf="isIncomplete()">
+              You must complete all fields before submitting<br></span>
+            <button type="submit" *ngIf="!isIncomplete()" class="btn btn-success" style="margin-right: 10px;">Add New Comment</button>
+
+            <a *ngIf="!isIncomplete()" (click)="clear_comment()" class="btn btn-secondary">Clear</a>
+        </form>
+      </div>
+      <br>
+    </div>
+    <div class="card_holder" *ngIf="isLogin()">
+      <div *ngFor="let review of movie.reviews | paginate: { itemsPerPage: page_size, currentPage: page, totalItems: totalRecords }">
+        <app-review-card [review]="review" [title]="movie.title"></app-review-card>
+      </div>
+      <pagination-controls (pageChange)="pagination($event)">
+      </pagination-controls>
+    </div>
+  </div>
+</div>

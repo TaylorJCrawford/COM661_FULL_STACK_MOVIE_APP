@@ -1,0 +1,10 @@
+<div class="container_main">
+  <div *ngFor="let movie of data | paginate:
+ { itemsPerPage: page_size, currentPage: page, totalItems: totalRecords }">
+    <div class="content_container">
+      <app-card [movie]="movie"></app-card>
+    </div>
+  </div>
+  <pagination-controls (pageChange)="pagination($event)" class="float-right">
+  </pagination-controls>
+</div>

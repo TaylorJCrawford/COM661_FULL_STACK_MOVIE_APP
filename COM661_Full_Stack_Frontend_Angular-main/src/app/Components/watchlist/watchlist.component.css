@@ -1,0 +1,30 @@
+.container_main_watchlist {
+    height: 100%;
+    margin-top: 20px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding: 30px;
+}
+
+.content_container_main_watchlist {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    place-items: center;
+}
+
+.movie_container {
+    width: 40vw;
+}
+
+.content_container_main_watchlist img {
+    width: 15vw;
+    float:left;
+    margin-right: 10px;
+}
+
+.content_container_main_watchlist button {
+    margin: 20px;
+}

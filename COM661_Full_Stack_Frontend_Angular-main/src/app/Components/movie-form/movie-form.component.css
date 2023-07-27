@@ -1,0 +1,29 @@
+.error { background-color: #fff0f0; }
+
+.container_main {
+    height: 100%;
+    margin-top: 20px;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    padding: 30px;
+}
+
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  .card {
+    display: inline-block;
+    height: 10vh;
+  }
+
+  #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    margin: auto;
+    font-family: sans-serif;
+    padding: 20px;
+    align-items: center;
+  }

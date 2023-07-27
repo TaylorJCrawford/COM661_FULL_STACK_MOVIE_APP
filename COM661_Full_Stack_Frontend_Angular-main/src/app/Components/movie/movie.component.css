@@ -1,0 +1,69 @@
+.checked {
+  color: orange;
+}
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+}
+
+.card {
+  display: inline-block;
+  height: 10vh;
+}
+
+.error {
+  background-color: #fff0f0;
+}
+
+.container_main {
+  height: 100%;
+  margin-top: 20px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding: 30px;
+}
+
+.container_main img {
+  width: 25vw;
+}
+
+.container_info {
+  float: right;
+  width: 55%;
+  margin-right: 2.5%;
+  margin-top: 2%;
+  padding: 2%;
+}
+
+.comment_container {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.card_holder {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.container_info button {
+  margin-right: 0.5vw;
+}
+
+.card-form {
+  height: 380px;
+}
+
+.pagnation-controls {
+  margin-top: 100vh;
+  background-color: rgb(255, 4, 45);
+}
+
+.pagination  {
+  background-color: pink;
+}
