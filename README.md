@@ -1,4 +1,4 @@
-# COM661FullStackBackendAPI
+# COM661 Full-Stack Module
 
 The goal of this assignment was to create a full stack application. Therefore, I decided to developed a movie review webpage.
 The code base is split up into two code bases COM661_FULL_STACK_FRONTEND_ANGULAR and COM661_FULL_STACK_BACKEND_API.
